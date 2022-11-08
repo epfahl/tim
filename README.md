@@ -50,5 +50,5 @@ is executed to gather timing statistics. When the above expression is piped into
 ## Under the hood
 
 The body of the `Time.time` macro essentially wraps Erlang's `:timer.tc` function that returns 
-`{<execution time in microsecds>, <result value>}`.
+`{<execution time in microseconds>, <result value>}`.
 
