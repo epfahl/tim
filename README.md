@@ -2,11 +2,11 @@ _`Tim` the tiny timer._
 
 Sometimes you want a simple tool to estimate execution time. `Tim` can help!
 
-## Usage
+## Explanation and usage
 
 `Tim` provides the macro `time` that takes any valid Elixir expression and returns a map
-containing a string representation of the evaluated expression, the result of the 
-expression, as well as several statistics for the expression's execution time. To use 
+containing several statistics for the expression's execution time, the result of the 
+evaluated expression, and the expression's string representation. To use 
 `time`, require or import `Tim` into your environment and pipe in the expression:
 
 ```elixir
@@ -49,6 +49,9 @@ is executed to gather timing statistics. When the above expression is piped into
 
 ## Under the hood
 
-The body of the `Time.time` macro essentially wraps Erlang's `:timer.tc` function that returns 
-`{<execution time in microseconds>, <result value>}`.
+The body of the `Time.time` macro wraps around Erlang's `:timer.tc` function that returns 
+`{<execution time in microseconds>, <result value>}`. The reason that `time` is a macro is so
+that the entire expression remains unevaluated until called inside `:timer.tc`. To generate timing
+statistics over independent executions, `:timer.tc` is called `n` times with the initially
+unevaluated expression.
 
