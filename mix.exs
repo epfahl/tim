@@ -6,10 +6,13 @@ defmodule Tim.MixProject do
   def project do
     [
       app: :tim,
+      name: "Tim",
       version: @version,
       elixir: "~> 1.14",
       desription: description(),
       package: package(),
+      docs: docs(),
+      source_url: "https://github.com/epfahl/tim",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -22,7 +25,9 @@ defmodule Tim.MixProject do
   end
 
   defp deps do
-    []
+    [
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+    ]
   end
 
   defp description() do
@@ -37,6 +42,13 @@ defmodule Tim.MixProject do
       links: %{
         GitHub: "https://github.com/epfahl/tim"
       }
+    ]
+  end
+
+  defp docs() do
+    [
+      main: "Tim",
+      extras: ["README.md"]
     ]
   end
 end
