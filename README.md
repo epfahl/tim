@@ -52,6 +52,5 @@ is executed to gather timing statistics. When the above expression is piped into
 The body of the `Tim.time` macro wraps around Erlang's [`:timer.tc`](https://www.erlang.org/doc/man/timer.html#tc-1) 
 function that returns `{<execution time in microseconds>, <result value>}`. The reason that `time` is a macro is so
 that the entire expression remains unevaluated until called inside `:timer.tc`. To generate timing
-statistics over independent executions, `:timer.tc` is called `n` times with the initially
-unevaluated expression.
+statistics over independent executions, `:timer.tc` and the expression are evaluated `n` times.
 
