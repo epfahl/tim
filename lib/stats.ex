@@ -20,10 +20,11 @@ defmodule Tim.Stats do
   Compute the mean value of a list of numbers.
 
   ## Exmaples
-    iex> Tim.Stats.mean([1])
-    1.0
-    iex> Tim.Stats.mean([1, 2, 3, 4])
-    2.5
+
+      iex> Tim.Stats.mean([1])
+      1.0
+      iex> Tim.Stats.mean([1, 2, 3, 4])
+      2.5
   """
   def mean([_ | _] = list), do: Enum.sum(list) / length(list)
   def mean([]), do: handle_empty()
@@ -33,12 +34,13 @@ defmodule Tim.Stats do
   of the list.
 
   ## Exmaples
-    iex> Tim.Stats.median([1])
-    1
-    iex> Tim.Stats.median([1, 2, 3])
-    2
-    iex> Tim.Stats.median([1, 2, 3, 4])
-    3
+
+      iex> Tim.Stats.median([1])
+      1
+      iex> Tim.Stats.median([1, 2, 3])
+      2
+      iex> Tim.Stats.median([1, 2, 3, 4])
+      3
   """
   def median([_ | _] = list) do
     sorted = Enum.sort(list)

@@ -1,3 +1,5 @@
+[![Hex.pm Version](https://img.shields.io/hexpm/v/timex.svg?style=flat)](https://hex.pm/packages/tim)
+
 _`Tim` the tiny timer._
 
 Sometimes you want a simple tool to estimate execution time. `Tim` can help!
