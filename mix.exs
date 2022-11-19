@@ -9,7 +9,7 @@ defmodule Tim.MixProject do
       name: "Tim",
       version: @version,
       elixir: "~> 1.14",
-      desription: description(),
+      description: description(),
       package: package(),
       docs: docs(),
       source_url: "https://github.com/epfahl/tim",
