@@ -1,14 +1,14 @@
 defmodule Tim.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.2.0"
 
   def project do
     [
       app: :tim,
       name: "Tim",
       version: @version,
-      elixir: "~> 1.14",
+      elixir: "~> 1.15",
       description: description(),
       package: package(),
       docs: docs(),
@@ -31,7 +31,7 @@ defmodule Tim.MixProject do
   end
 
   defp description() do
-    "Tim provides a macro for measuring the execution time of an arbitrary Elixir expression."
+    "Tim provides macros for measuring the execution time of an arbitrary Elixir expression."
   end
 
   defp package() do
