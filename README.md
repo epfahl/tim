@@ -1,4 +1,4 @@
-[![Version][hex-pm-version-badge]][hex-pm-versions]
+[![Hex.pm Version](https://img.shields.io/hexpm/v/tim.svg)](https://hex.pm/packages/tim)
 
 <!-- END HEADER -->
 
