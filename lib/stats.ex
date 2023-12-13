@@ -6,14 +6,15 @@ defmodule Tim.Stats do
   @doc """
   Return a map of statistical aggregates for a list of numbers.
   """
-  @spec collect(list(number)) :: map
-  def collect(list) do
+  @spec collect([number, ...], number) :: %{atom => number}
+  def collect(nums, scale) do
     %{
-      mean: mean(list),
-      median: median(list),
-      min: min(list),
-      max: max(list)
+      mean: mean(nums),
+      median: median(nums),
+      min: min(nums),
+      max: max(nums)
     }
+    |> apply_scale(scale)
   end
 
   @doc """
@@ -26,6 +27,7 @@ defmodule Tim.Stats do
       iex> Tim.Stats.mean([1, 2, 3, 4])
       2.5
   """
+  @spec mean([number, ...]) :: number
   def mean([_ | _] = list), do: Enum.sum(list) / length(list)
   def mean([]), do: handle_empty()
 
@@ -42,6 +44,7 @@ defmodule Tim.Stats do
       iex> Tim.Stats.median([1, 2, 3, 4])
       3
   """
+  @spec median([number, ...]) :: number
   def median([_ | _] = list) do
     sorted = Enum.sort(list)
     len = length(list)
@@ -58,12 +61,19 @@ defmodule Tim.Stats do
   @doc """
   Compute the minimum value of a list of numbers. This aliases `Enum.min`.
   """
+  @spec min([number, ...]) :: number
   def min(list), do: Enum.min(list)
 
   @doc """
   Compute the maximum value of a list of numbers. This aliases `Enum.max`.
   """
+  @spec max([number, ...]) :: number
   def max(list), do: Enum.max(list)
+
+  @spec apply_scale(%{atom => number}, number) :: %{atom => number}
+  defp apply_scale(stats, scale) do
+    for {k, v} <- stats, into: %{}, do: {k, v * scale}
+  end
 
   defp handle_empty(), do: raise(Enum.EmptyError)
 end
