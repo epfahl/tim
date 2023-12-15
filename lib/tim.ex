@@ -25,7 +25,7 @@ defmodule Tim do
   * `:unit` - unit of time for the timing statistics; `:microsecond` (default) | `:millisecond` | `:second` | `:minute` | `:hour`
   """
   defmacro time(expr, opts \\ []) do
-    %{n: n, unit: unit} = Map.merge(@default_opts, Enum.into(opts, %{}))
+    %{n: n, unit: unit} = merge_opts(@default_opts, opts)
     scale = unit_to_scale(unit)
     expr_string = Macro.to_string(expr)
 
@@ -48,15 +48,19 @@ defmodule Tim do
   applying `IO.inspect` to the map of timing stats.
 
   `inspect` has the following optional keyword arguments:
-  * `:n` - number of times the expression is evaluated to build statistics; defaults to 1
-  * `:unit` - unit of time for the timing statistics; `:microsecond` (default) | `:millisecond` | `:second` | `:minute` | `:hour`
+  * `:n` - number of times the expression is evaluated to build statistics (defaults to 1)
+  * `:unit` - unit of time for the timing statistics: `:microsecond` (default) | `:millisecond` | `:second` | `:minute` | `:hour`
+  * `:label` - a string that decorates the inspected output (passed to `IO.inspect`)
   """
   defmacro inspect(expr, opts \\ []) do
     quote do
       unquote(expr)
       |> Tim.time(unquote(opts))
       |> then(fn %{result: result} = data ->
-        data |> Map.delete(:result) |> IO.inspect(label: "Timing data")
+        data
+        |> Map.delete(:result)
+        |> IO.inspect(label: unquote(Keyword.get(opts, :label)))
+
         result
       end)
     end
@@ -67,4 +71,8 @@ defmodule Tim do
   defp unit_to_scale(:second), do: 1.0e-6
   defp unit_to_scale(:minute), do: 1.6667e-8
   defp unit_to_scale(:hour), do: 2.7778e-10
+
+  defp merge_opts(defaults, opts) do
+    Map.merge(defaults, Enum.into(opts, %{}))
+  end
 end
