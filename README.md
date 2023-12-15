@@ -40,11 +40,11 @@ the expression is executed to gather timing statistics (defaults to 1)
 `Tim` also provides an `inspect` macro that applies `IO.inspect` to the timing data returned
 by `Tim.time`, but then returns the result of the expression being timed. This allows timing 
 data to be captured in the middle of a pipeline. Like `Tim.time`, `inspect` also takes the
-optional keyword arguments `:n` and `:unit`. Here's an example of using `inspect`:
+optional keyword arguments `:n`, `:unit`, and `:label`. Here's an example of using `inspect`:
 
 ```elixir
 iex> require Tim
-iex> :timer.sleep(1_000) |> Tim.inspect(n: 2, unit: :second)
+iex> :timer.sleep(1_000) |> Tim.inspect(n: 2, unit: :second, label: "Timing data")
 Timing data: %{
   max: 1.000952,
   min: 1.00057,
